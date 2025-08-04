@@ -1,16 +1,22 @@
+# Use the official Odoo 16 image
 FROM odoo:16.0
 
-# Set the working directory
+# Set the working directory inside the container
 WORKDIR /odoo
 
-# (Optional) Copy custom modules
-# COPY ./custom-addons /mnt/extra-addons
+# Optional: Copy custom addons if you have any
+# COPY ./your-addons /mnt/extra-addons
 
 # Set permissions
 RUN chown -R odoo:odoo /odoo
 
-# Expose Odoo's default port
+# Expose default Odoo port
 EXPOSE 8069
 
-# Start Odoo with DB connection settings from env vars
-CMD ["odoo", "--db_host=${PGHOST}", "--db_port=${PGPORT}", "--db_user=${PGUSER}", "--db_password=${PGPASSWORD}", "-d", "odoo_db_main_001"]
+# Start Odoo with full database connection settings
+CMD ["odoo", 
+     "--db_host=dpg-d28278uuk2gs73epjes0-a", 
+     "--db_port=5432", 
+     "--db_user=odoo_db_main_001_user", 
+     "--db_password=AJzkavfYwCVkSC6A9AjvDzKnFMMdf9dM", 
+     "-d", "odoo_db_main_001"]
